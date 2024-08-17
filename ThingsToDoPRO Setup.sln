@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ThingsToDoPRO Setup", "ThingsToDoPRO Setup.vdproj", "{4862C48B-E67F-4384-8B36-756E6664CC32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThingsToDoPRO", "..\ThingsToDoPRO\ThingsToDoPRO.csproj", "{C0567A07-5F39-462B-B03C-D460ECA39379}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4862C48B-E67F-4384-8B36-756E6664CC32}.Debug|Any CPU.ActiveCfg = Debug
+		{4862C48B-E67F-4384-8B36-756E6664CC32}.Debug|Any CPU.Build.0 = Debug
+		{4862C48B-E67F-4384-8B36-756E6664CC32}.Release|Any CPU.ActiveCfg = Debug
+		{4862C48B-E67F-4384-8B36-756E6664CC32}.Release|Any CPU.Build.0 = Debug
+		{C0567A07-5F39-462B-B03C-D460ECA39379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0567A07-5F39-462B-B03C-D460ECA39379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0567A07-5F39-462B-B03C-D460ECA39379}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0567A07-5F39-462B-B03C-D460ECA39379}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAB8513C-A14E-40FD-A9A0-DDF54E91F869}
+	EndGlobalSection
+EndGlobal
