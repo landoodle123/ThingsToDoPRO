@@ -7,7 +7,7 @@ namespace ThingsToDoPRO
     public partial class Form1 : Form
     {
         // Declare filePath here
-        private readonly string filePath;
+        private readonly string filePath = "C:/Program Files (x86)/Lando Products/ThingsToDoPRO/nodelete.txt";
 
         public Form1()
         {
