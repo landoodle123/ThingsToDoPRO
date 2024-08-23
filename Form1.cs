@@ -6,14 +6,15 @@ namespace ThingsToDoPRO
 {
     public partial class Form1 : Form
     {
-        // Declare filePath here
-        private readonly string filePath = "C:/Program Files (x86)/Lando Products/ThingsToDoPRO/nodelete.txt";
+        // Declare and initialize filePath correctly
+        private readonly string filePath;
 
         public Form1()
         {
             InitializeComponent();
-            // Initialize filePath
-            filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tasks.txt");
+
+            // Set filePath to the path in the Documents folder
+            filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "tasks.txt");
 
             // Load tasks when the form loads
             LoadTasksFromFile();
@@ -68,6 +69,30 @@ namespace ThingsToDoPRO
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Optional: Handle selection changes if needed
+        }
+
+        private void listView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && taskList.SelectedItems.Count > 0)
+            {
+                taskList.Items.Remove(taskList.SelectedItems[0]);
+                SaveTasksToFile();
+            }
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string task = textBox1.Text.Trim();
+
+                if (!string.IsNullOrEmpty(task))
+                {
+                    taskList.Items.Add(task);
+                    textBox1.Clear();
+                    SaveTasksToFile();
+                }
+            }
         }
 
         private void SaveTasksToFile()
