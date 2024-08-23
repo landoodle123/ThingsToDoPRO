@@ -34,6 +34,9 @@ namespace ThingsToDoPRO
             clearButton = new Button();
             taskList = new ListView();
             deleteSelected = new Button();
+            this.taskList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+
             SuspendLayout();
             // 
             // textBox1
