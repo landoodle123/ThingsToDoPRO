@@ -129,6 +129,39 @@ namespace ThingsToDoPRO
             }
         }
 
+        private void changeBackground_Click(object sender, EventArgs e)
+{
+    // Initialize the OpenFileDialog variable
+    using (OpenFileDialog openFileDialog = new OpenFileDialog())
+    {
+        // Set filter to display only image files
+        openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+
+        // Show the dialog and check if the user selected a file
+        if (openFileDialog.ShowDialog() == DialogResult.OK)
+        {
+            try
+            {
+                // Load the selected image
+                Image selectedImage = Image.FromFile(openFileDialog.FileName);
+
+                // Set the form's background image
+                this.BackgroundImage = selectedImage;
+
+                // Optional: Set layout to control how the image fits the form
+                this.BackgroundImageLayout = ImageLayout.Stretch; // Other options: Tile, Center, Zoom, None
+            }
+            catch (Exception ex)
+            {
+                // Display an error message if something goes wrong
+                MessageBox.Show($"An error occurred while setting the background image: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+}
+
+
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
