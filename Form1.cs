@@ -107,34 +107,31 @@ namespace ThingsToDoPRO
         }
 
         private void LoadTasksFromFile()
-{
-    try
-    {
-        if (File.Exists(filePath))
         {
-            taskList.Items.Clear();
-            string[] lines = File.ReadAllLines(filePath);
-
-            foreach (string line in lines)
+            try
             {
-                string[] parts = line.Split('|');
+                taskList.Items.Clear();
+                string[] lines = File.ReadAllLines(filePath);
 
-                if (parts.Length == 2)
+                foreach (string line in lines)
                 {
-                    ListViewItem item = new ListViewItem(parts[0])
+                    string[] parts = line.Split('|');
+
+                    if (parts.Length == 2)
                     {
-                        Checked = bool.Parse(parts[1])
-                    };
-                    taskList.Items.Add(item);
-                }
+                        ListViewItem item = new ListViewItem(parts[0])
+                        {
+                            Checked = bool.Parse(parts[1])
+                        };
+                        taskList.Items.Add(item);
+                        }
+                    }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred loading the tasklist from the file. If your tasklist is not supposed to be empty, please raise an issue on GitHub. Error code: {ex.Message}", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"An error occurred loading the tasklist from the file. If your tasklist is not supposed to be empty, please raise an issue on GitHub. Error code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-    }
-}
 
         private void changeBackground_Click(object sender, EventArgs e)
 {
@@ -157,6 +154,7 @@ namespace ThingsToDoPRO
 
                 // Optional: Set layout to control how the image fits the form
                 this.BackgroundImageLayout = ImageLayout.Stretch; // Other options: Tile, Center, Zoom, None
+
             }
             catch (Exception ex)
             {
