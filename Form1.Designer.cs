@@ -34,9 +34,8 @@ namespace ThingsToDoPRO
             clearButton = new Button();
             taskList = new ListView();
             deleteSelected = new Button();
-            this.taskList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
-
+            changeBackground = new Button();
+            openFileDialog1 = new OpenFileDialog();
             SuspendLayout();
             // 
             // textBox1
@@ -46,6 +45,7 @@ namespace ThingsToDoPRO
             textBox1.Size = new Size(258, 23);
             textBox1.TabIndex = 0;
             textBox1.TextChanged += textBox1_TextChanged;
+            textBox1.KeyDown += textBox1_KeyDown;
             // 
             // addTask
             // 
@@ -77,6 +77,7 @@ namespace ThingsToDoPRO
             taskList.UseCompatibleStateImageBehavior = false;
             taskList.View = View.List;
             taskList.SelectedIndexChanged += listView1_SelectedIndexChanged;
+            taskList.KeyDown += listView1_KeyDown;
             // 
             // deleteSelected
             // 
@@ -88,11 +89,26 @@ namespace ThingsToDoPRO
             deleteSelected.UseVisualStyleBackColor = true;
             deleteSelected.Click += deleteSelected_Click;
             // 
+            // changeBackground
+            // 
+            changeBackground.Location = new Point(228, 397);
+            changeBackground.Name = "changeBackground";
+            changeBackground.Size = new Size(123, 23);
+            changeBackground.TabIndex = 5;
+            changeBackground.Text = "Change Background";
+            changeBackground.UseVisualStyleBackColor = true;
+            changeBackground.Click += changeBackground_Click;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(363, 432);
+            Controls.Add(changeBackground);
             Controls.Add(deleteSelected);
             Controls.Add(taskList);
             Controls.Add(clearButton);
@@ -112,5 +128,7 @@ namespace ThingsToDoPRO
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.ListView taskList;
         private System.Windows.Forms.Button deleteSelected;
+        private Button changeBackground;
+        private OpenFileDialog openFileDialog1;
     }
 }
