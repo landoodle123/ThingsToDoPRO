@@ -107,27 +107,34 @@ namespace ThingsToDoPRO
         }
 
         private void LoadTasksFromFile()
+{
+    try
+    {
+        if (File.Exists(filePath))
         {
-            if (File.Exists(filePath))
+            taskList.Items.Clear();
+            string[] lines = File.ReadAllLines(filePath);
+
+            foreach (string line in lines)
             {
-                taskList.Items.Clear();
-                string[] lines = File.ReadAllLines(filePath);
+                string[] parts = line.Split('|');
 
-                foreach (string line in lines)
+                if (parts.Length == 2)
                 {
-                    string[] parts = line.Split('|');
-
-                    if (parts.Length == 2)
+                    ListViewItem item = new ListViewItem(parts[0])
                     {
-                        ListViewItem item = new ListViewItem(parts[0])
-                        {
-                            Checked = bool.Parse(parts[1])
-                        };
-                        taskList.Items.Add(item);
-                    }
+                        Checked = bool.Parse(parts[1])
+                    };
+                    taskList.Items.Add(item);
                 }
             }
         }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"An error occurred loading the tasklist from the file. If your tasklist is not supposed to be empty, please raise an issue on GitHub. Error code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+}
 
         private void changeBackground_Click(object sender, EventArgs e)
 {
