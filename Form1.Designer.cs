@@ -6,6 +6,10 @@ namespace ThingsToDoPRO
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Timer dueDateTimer;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private DateTimePicker addDueTime; // Add this to your variables
+
 
         /// <summary>
         /// Clean up any resources being used.
@@ -28,99 +32,131 @@ namespace ThingsToDoPRO
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.addTask = new System.Windows.Forms.Button();
-            this.clearButton = new System.Windows.Forms.Button();
-            this.taskList = new System.Windows.Forms.ListView();
-            this.deleteSelected = new System.Windows.Forms.Button();
-            this.changeBackground = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.SuspendLayout();
+            textBox1 = new TextBox();
+            addTask = new Button();
+            clearButton = new Button();
+            taskList = new ListView();
+            deleteSelected = new Button();
+            changeBackground = new Button();
+            openFileDialog1 = new OpenFileDialog();
+            addDueDate = new DateTimePicker();
+            dueDateTimer = new System.Windows.Forms.Timer(components);
+            notifyIcon1 = new NotifyIcon(components);
+            addDueTime = new DateTimePicker();
+            SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(258, 23);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            textBox1.Location = new Point(12, 12);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(258, 23);
+            textBox1.TabIndex = 0;
+            textBox1.TextChanged += textBox1_TextChanged;
+            textBox1.KeyDown += textBox1_KeyDown;
             // 
             // addTask
             // 
-            this.addTask.Location = new System.Drawing.Point(276, 12);
-            this.addTask.Name = "addTask";
-            this.addTask.Size = new System.Drawing.Size(75, 23);
-            this.addTask.TabIndex = 1;
-            this.addTask.Text = "Add Task";
-            this.addTask.UseVisualStyleBackColor = true;
-            this.addTask.Click += new System.EventHandler(this.button1_Click);
+            addTask.Location = new Point(436, 14);
+            addTask.Name = "addTask";
+            addTask.Size = new Size(75, 23);
+            addTask.TabIndex = 1;
+            addTask.Text = "Add Task";
+            addTask.UseVisualStyleBackColor = true;
+            addTask.Click += button1_Click;
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(12, 397);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(75, 23);
-            this.clearButton.TabIndex = 2;
-            this.clearButton.Text = "Clear All";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            clearButton.Location = new Point(12, 397);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new Size(75, 23);
+            clearButton.TabIndex = 2;
+            clearButton.Text = "Clear All";
+            clearButton.UseVisualStyleBackColor = true;
+            clearButton.Click += clearButton_Click;
             // 
             // taskList
             // 
-            this.taskList.CheckBoxes = true;
-            this.taskList.Location = new System.Drawing.Point(12, 41);
-            this.taskList.Name = "taskList";
-            this.taskList.Size = new System.Drawing.Size(339, 350);
-            this.taskList.TabIndex = 3;
-            this.taskList.UseCompatibleStateImageBehavior = false;
-            this.taskList.View = System.Windows.Forms.View.List;
-            this.taskList.SelectedIndexChanged += new System.EventHandler(this.taskList_SelectedIndexChanged);
-            this.taskList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
+            taskList.CheckBoxes = true;
+            taskList.Location = new Point(12, 41);
+            taskList.Name = "taskList";
+            taskList.Size = new Size(499, 350);
+            taskList.TabIndex = 3;
+            taskList.UseCompatibleStateImageBehavior = false;
+            taskList.View = View.List;
+            taskList.SelectedIndexChanged += taskList_SelectedIndexChanged;
+            taskList.KeyDown += listView1_KeyDown;
             // 
             // deleteSelected
             // 
-            this.deleteSelected.Location = new System.Drawing.Point(93, 397);
-            this.deleteSelected.Name = "deleteSelected";
-            this.deleteSelected.Size = new System.Drawing.Size(95, 23);
-            this.deleteSelected.TabIndex = 4;
-            this.deleteSelected.Text = "Delete Task";
-            this.deleteSelected.UseVisualStyleBackColor = true;
-            this.deleteSelected.Click += new System.EventHandler(this.deleteSelected_Click);
+            deleteSelected.Location = new Point(93, 397);
+            deleteSelected.Name = "deleteSelected";
+            deleteSelected.Size = new Size(95, 23);
+            deleteSelected.TabIndex = 4;
+            deleteSelected.Text = "Delete Task";
+            deleteSelected.UseVisualStyleBackColor = true;
+            deleteSelected.Click += deleteSelected_Click;
             // 
             // changeBackground
             // 
-            this.changeBackground.Location = new System.Drawing.Point(228, 397);
-            this.changeBackground.Name = "changeBackground";
-            this.changeBackground.Size = new System.Drawing.Size(123, 23);
-            this.changeBackground.TabIndex = 5;
-            this.changeBackground.Text = "Change Background";
-            this.changeBackground.UseVisualStyleBackColor = true;
-            this.changeBackground.Click += new System.EventHandler(this.changeBackground_Click);
+            changeBackground.Location = new Point(388, 397);
+            changeBackground.Name = "changeBackground";
+            changeBackground.Size = new Size(123, 23);
+            changeBackground.TabIndex = 5;
+            changeBackground.Text = "Change Background";
+            changeBackground.UseVisualStyleBackColor = true;
+            changeBackground.Click += changeBackground_Click;
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // addDueDate
+            // 
+            addDueDate.Location = new Point(276, 12);
+            addDueDate.Name = "addDueDate";
+            addDueDate.Size = new Size(89, 23);
+            addDueDate.TabIndex = 6;
+            // 
+            // dueDateTimer
+            // 
+            dueDateTimer.Interval = 60000;
+            dueDateTimer.Tick += CheckDueTasks;
+            // 
+            // notifyIcon1
+            // 
+            notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
+            notifyIcon1.Visible = true;
+            // 
+            // addDueTime
+            // 
+            addDueTime.Format = DateTimePickerFormat.Time;
+            addDueTime.Location = new Point(371, 14);
+            addDueTime.Name = "addDueTime";
+            addDueTime.ShowUpDown = true;
+            addDueTime.Size = new Size(59, 23);
+            addDueTime.TabIndex = 7;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(363, 432);
-            this.Controls.Add(this.changeBackground);
-            this.Controls.Add(this.deleteSelected);
-            this.Controls.Add(this.taskList);
-            this.Controls.Add(this.clearButton);
-            this.Controls.Add(this.addTask);
-            this.Controls.Add(this.textBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
-            this.Text = "ThingsToDoPRO";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(523, 432);
+            Controls.Add(addDueTime);
+            Controls.Add(addDueDate);
+            Controls.Add(changeBackground);
+            Controls.Add(deleteSelected);
+            Controls.Add(taskList);
+            Controls.Add(clearButton);
+            Controls.Add(addTask);
+            Controls.Add(textBox1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "Form1";
+            Text = "ThingsToDoPRO";
+            FormClosing += Form1_FormClosing;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -132,5 +168,6 @@ namespace ThingsToDoPRO
         private System.Windows.Forms.Button deleteSelected;
         private System.Windows.Forms.Button changeBackground;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private DateTimePicker addDueDate;
     }
 }
