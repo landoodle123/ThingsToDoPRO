@@ -22,15 +22,52 @@ namespace ThingsToDoPRO
             // Load tasks and background when the form loads
             LoadTasksFromFile();
             LoadBackgroundImage();
+
+            // Start the timer to check due tasks
+            dueDateTimer.Start();
         }
+        private void CheckDueTasks(object sender, EventArgs e)
+        {
+            DateTime now = DateTime.Now;
+
+            foreach (ListViewItem item in taskList.Items)
+            {
+                // Split the task text to get the due date and time
+                string[] taskParts = item.Text.Split(new[] { " | Due " }, StringSplitOptions.None);
+
+                if (taskParts.Length == 2)
+                {
+                    string dueDateString = taskParts[1];
+
+                    // Parse the due date and time
+                    if (DateTime.TryParse(dueDateString, out DateTime dueDateTime))
+                    {
+                        // Check if the task is due now or overdue and unchecked
+                        if (!item.Checked && dueDateTime <= now)
+                        {
+                            // Show notification for the due task
+                            notifyIcon1.BalloonTipTitle = "Task Due Reminder";
+                            notifyIcon1.BalloonTipText = $"The task \"{taskParts[0]}\" is due now!";
+                            notifyIcon1.ShowBalloonTip(30000); // Show the notification for 30 seconds
+                        }
+                    }
+                }
+            }
+        }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
             string task = textBox1.Text.Trim();
+            string date = addDueDate.Value.ToShortDateString();
+            string time = addDueTime.Value.ToShortTimeString();
 
-            if (!string.IsNullOrEmpty(task))
+            if (!string.IsNullOrEmpty(task) && (!string.IsNullOrEmpty(date)))
             {
-                taskList.Items.Add(task);
+                // Combine the date and time for saving and displaying
+                string dueDateTime = $"{date} {time}";
+                taskList.Items.Add($"{task} | Due {dueDateTime}");
                 textBox1.Clear();
 
                 // Save tasks after adding a new one
@@ -38,9 +75,13 @@ namespace ThingsToDoPRO
             }
             else
             {
-                MessageBox.Show("Please enter a task.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter a task and due date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+
+
+
 
         private void clearButton_Click(object sender, EventArgs e)
         {
@@ -105,10 +146,14 @@ namespace ThingsToDoPRO
             {
                 foreach (ListViewItem item in taskList.Items)
                 {
-                    writer.WriteLine($"{item.Text}|{item.Checked}");
+                    string[] taskParts = item.Text.Split('|');
+                    writer.WriteLine($"{taskParts[0].Trim()}|{item.Checked}|{taskParts[1].Trim()}"); // Save task, status, and due date/time
                 }
             }
         }
+
+
+
 
         private void LoadTasksFromFile()
         {
@@ -121,12 +166,13 @@ namespace ThingsToDoPRO
                 {
                     string[] parts = line.Split('|');
 
-                    if (parts.Length == 2)
+                    if (parts.Length == 3)
                     {
-                        ListViewItem item = new ListViewItem(parts[0])
+                        ListViewItem item = new ListViewItem(parts[0].Trim())
                         {
-                            Checked = bool.Parse(parts[1])
+                            Checked = bool.Parse(parts[1].Trim())
                         };
+                        item.SubItems.Add($"| Due {parts[2].Trim()}");
                         taskList.Items.Add(item);
                     }
                 }
@@ -136,6 +182,9 @@ namespace ThingsToDoPRO
                 MessageBox.Show($"An error occurred loading the task list from the file: {ex.Message}", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+
+
 
         private void changeBackground_Click(object sender, EventArgs e)
         {
@@ -178,6 +227,11 @@ namespace ThingsToDoPRO
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             SaveTasksToFile();
+
+            // Dispose of NotifyIcon
+            notifyIcon1.Dispose();
         }
+
+
     }
 }
